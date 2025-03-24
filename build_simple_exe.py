@@ -27,8 +27,43 @@ def build_exe():
         "--windowed", 
         "--name", 
         "MotivaPlant", 
+        "--version-file",
+        f"version_info.txt",
         "simple_run.py"
     ]
+    
+    # Create version info file with publisher name
+    with open("version_info.txt", "w") as f:
+        f.write("""
+VSVersionInfo(
+  ffi=FixedFileInfo(
+    filevers=(1, 0, 0, 0),
+    prodvers=(1, 0, 0, 0),
+    mask=0x3f,
+    flags=0x0,
+    OS=0x40004,
+    fileType=0x1,
+    subtype=0x0,
+    date=(0, 0)
+    ),
+  kids=[
+    StringFileInfo(
+      [
+      StringTable(
+        u'040904B0',
+        [StringStruct(u'CompanyName', u'Mohaimen Khan'),
+        StringStruct(u'FileDescription', u'MotivaPlant - A motivational plant game'),
+        StringStruct(u'FileVersion', u'1.0.0'),
+        StringStruct(u'InternalName', u'MotivaPlant'),
+        StringStruct(u'LegalCopyright', u'© 2025 Mohaimen Khan. All rights reserved.'),
+        StringStruct(u'OriginalFilename', u'MotivaPlant.exe'),
+        StringStruct(u'ProductName', u'MotivaPlant'),
+        StringStruct(u'ProductVersion', u'1.0.0')])
+      ]),
+    VarFileInfo([VarStruct(u'Translation', [1033, 1200])])
+  ]
+)
+""")
     
     try:
         subprocess.check_call(cmd)
