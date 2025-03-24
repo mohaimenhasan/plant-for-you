@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+    permissions:
+      contents: write
     
     steps:
     - name: Checkout code
@@ -33,8 +35,13 @@ jobs:
     - name: Create ZIP archive
       run: |
         cd dist
-        powershell Compress-Archive -Path * -DestinationPath ../MotivaPlant.zip
+        powershell Compress-Archive -Path * -DestinationPath ${{ github.workspace }}/MotivaPlant.zip -Force
         cd ..
+        # Verify files exist
+        echo "ZIP file location:"
+        dir MotivaPlant.zip
+        echo "EXE file location:"
+        dir dist/MotivaPlant.exe
       
     - name: Get current date
       id: date
@@ -55,7 +62,7 @@ jobs:
         draft: false
         prerelease: false
         files: |
-          MotivaPlant.zip
-          dist/MotivaPlant.exe
+          ./MotivaPlant.zip
+          ./dist/MotivaPlant.exe
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
