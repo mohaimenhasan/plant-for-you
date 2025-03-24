@@ -1,0 +1,5 @@
+pygame==2.5.2
+pyglet==2.0.9
+pillow==10.1.0
+python-dotenv==1.0.0
+numpy==1.26.0
